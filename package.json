@@ -1,0 +1,18 @@
+{
+  "name": "reactshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "keywords": [
+    "React",
+    "NodeJs"
+  ],
+  "author": "Yurii Petrenko",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
