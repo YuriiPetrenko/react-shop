@@ -4,17 +4,20 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message.js'
 import Loader from '../components/Loader.js'
-import { login } from '../actions/userActions.js'
+import { register } from '../actions/userActions.js'
 import FormContainer from '../components/FormContainer.js'
 
-export default function LoginScreen({ location, history }) {
+export default function RegisterScreen({ location, history }) {
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [message, setMessage] = useState('')
 
     const dispatch = useDispatch()
 
-    const userLogin = useSelector(state => state.userLogin)
-    const { loading, error, userInfo } = userLogin
+    const userRegister = useSelector(state => state.userRegister)
+    const { loading, error, userInfo } = userRegister
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
@@ -26,15 +29,31 @@ export default function LoginScreen({ location, history }) {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(login(email, password))
+        if(password !== confirmPassword){
+            setMessage('Passwords must be the same')
+        }else{
+            dispatch(register(name, email, password))
+        }
     }
 
     return (
         <FormContainer>
-            <h1>Sign In</h1>
+            <h1>Sign Up</h1>
+            {message && <Message variant='danger'>{message}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader/>}
             <Form onSubmit={submitHandler}>
+
+                <Form.Group controlId='name'>
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control 
+                        type='name' 
+                        placeholder='Enter Name' 
+                        values={name} 
+                        onChange={(e)=>{setName(e.target.value)}}
+                    ></Form.Control>
+                </Form.Group>
+
                 <Form.Group controlId='email'>
                     <Form.Label>Email Adress</Form.Label>
                     <Form.Control 
@@ -42,10 +61,9 @@ export default function LoginScreen({ location, history }) {
                         placeholder='Enter Email' 
                         values={email} 
                         onChange={(e)=>{setEmail(e.target.value)}}
-                    >
-
-                    </Form.Control>
+                    ></Form.Control>
                 </Form.Group>
+
                 <Form.Group controlId='password'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control 
@@ -53,18 +71,26 @@ export default function LoginScreen({ location, history }) {
                         placeholder='Enter password' 
                         values={password} 
                         onChange={(e)=>{setPassword(e.target.value)}}
-                    >
-
-                    </Form.Control>
+                    ></Form.Control>
                 </Form.Group>
 
-                <Button type='submit' variant='dark'>Sign In</Button>
+                <Form.Group controlId='confirmPassword'>
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control 
+                        type='password' 
+                        placeholder='Confirm password' 
+                        values={confirmPassword} 
+                        onChange={(e)=>{setConfirmPassword(e.target.value)}}
+                    ></Form.Control>
+                </Form.Group>
+
+                <Button type='submit' variant='dark'>Register</Button>
 
                 <Row className='py-3'>
                     <Col>
-                        New Custommer? 
-                        <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-                            Register
+                        Have an Account?{' '}
+                        <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+                            Login
                         </Link>
                     </Col>
                 </Row>
