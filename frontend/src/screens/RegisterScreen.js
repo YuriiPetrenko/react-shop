@@ -49,7 +49,7 @@ export default function RegisterScreen({ location, history }) {
                     <Form.Control 
                         type='name' 
                         placeholder='Enter Name' 
-                        values={name} 
+                        value={name} 
                         onChange={(e)=>{setName(e.target.value)}}
                     ></Form.Control>
                 </Form.Group>
@@ -59,7 +59,7 @@ export default function RegisterScreen({ location, history }) {
                     <Form.Control 
                         type='email' 
                         placeholder='Enter Email' 
-                        values={email} 
+                        value={email} 
                         onChange={(e)=>{setEmail(e.target.value)}}
                     ></Form.Control>
                 </Form.Group>
@@ -69,7 +69,7 @@ export default function RegisterScreen({ location, history }) {
                     <Form.Control 
                         type='password' 
                         placeholder='Enter password' 
-                        values={password} 
+                        value={password} 
                         onChange={(e)=>{setPassword(e.target.value)}}
                     ></Form.Control>
                 </Form.Group>
@@ -79,7 +79,7 @@ export default function RegisterScreen({ location, history }) {
                     <Form.Control 
                         type='password' 
                         placeholder='Confirm password' 
-                        values={confirmPassword} 
+                        value={confirmPassword} 
                         onChange={(e)=>{setConfirmPassword(e.target.value)}}
                     ></Form.Control>
                 </Form.Group>
